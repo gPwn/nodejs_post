@@ -6,7 +6,7 @@ const Comments = require("../schemas/comment.js");
 const Posts = require("../schemas/post.js");
 
 //댓글생성(댓글이 생성하였습니다 에러가 안됨)
-router.post("/comments/:_postId", async (req, res) => {        
+router.post("/:_postId", async (req, res) => {        
     try {
         const { _postId } = req.params;
         const post = await Posts.findOne({ _id : _postId });
@@ -26,7 +26,7 @@ router.post("/comments/:_postId", async (req, res) => {
 });
 
 //댓글 목록조회
-router.get("/comments/:_postId", async (req, res) => {
+router.get("/:_postId", async (req, res) => {
     try{
         const { _postId } = req.params;
         const post = await Posts.findOne({ _id : _postId });
@@ -48,7 +48,7 @@ router.get("/comments/:_postId", async (req, res) => {
 });
 
 //댓글 수정
-router.put("/comments/:_commentId", async (req, res) => {
+router.put("/:_commentId", async (req, res) => {
     try {
         const { _commentId } = req.params;
         const { password, content } = req.body;
@@ -73,7 +73,7 @@ router.put("/comments/:_commentId", async (req, res) => {
 });
 
 //댓글 삭제
-router.delete("/comments/:_commentId", async (req,res) => {
+router.delete("/:_commentId", async (req,res) => {
     try {
         const { _commentId } = req.params;
         const { password } = req.params;

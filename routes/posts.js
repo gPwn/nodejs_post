@@ -5,7 +5,7 @@ const router = express.Router();
 const Posts = require("../schemas/post.js");
 
 // 게시글 작성
-router.post("/posts", async (req, res) => {
+router.post("/", async (req, res) => {
     try {
         const { user, password, title, content } = req.body;
         // console.log(req.body);
@@ -13,13 +13,13 @@ router.post("/posts", async (req, res) => {
         await Posts.create({user, password, title, content});
         res.status(201).json({massage : "게시글을 생성하였습니다."});
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         res.status(400).json({message : "데이터 형식이 올바르지 않습니다."})
     }
 });
 
 //게시글 조회
-router.get("/posts", async (req, res) => {
+router.get("/", async (req, res) => {
     const post = await Posts.find();
     // console.log(post)
 
@@ -38,7 +38,7 @@ router.get("/posts", async (req, res) => {
 });
 
 //게시글 상세 조회
-router.get("/posts/:_postId", async (req, res) => {
+router.get("/:_postId", async (req, res) => {
     try {
         const { _postId } = req.params;
         const post = await Posts.findOne({ _id : _postId });
@@ -57,7 +57,7 @@ router.get("/posts/:_postId", async (req, res) => {
 });
 
 //게시글 수정
-router.put("/posts/:_postId", async (req,res) => {
+router.put("/:_postId", async (req,res) => {
     try {
         const { _postId } = req.params;
         const { password, title, content } = req.body;
@@ -79,7 +79,7 @@ router.put("/posts/:_postId", async (req,res) => {
 });
 
 // 게시글 삭제
-router.delete("/posts/:_postId", async (req,res) => {
+router.delete("/:_postId", async (req,res) => {
     try {
         const { _postId } = req.params;
         const { password } = req.params;
