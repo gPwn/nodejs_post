@@ -52,8 +52,9 @@ router.put("/:_commentId", async (req, res) => {
     try {
         const { _commentId } = req.params;
         const { password, content } = req.body;
+        // console.log(req.params);
 
-        const comment = await Comments.findOne({ _id : _commentId });
+        const comment = await Comments.findById(_commentId);
         // console.log(comment);
         if (content.length === 0) {
             return res.status(400).json({massage:'댓글 내용을 입력해주세요.'})
@@ -77,10 +78,13 @@ router.delete("/:_commentId", async (req,res) => {
     try {
         const { _commentId } = req.params;
         const { password } = req.params;
-
-        const comment = await Comments.findOne({ _id : _commentId });
+        console.log(_commentId);
+        // const comment = await Comments.findOne({ _id : _commentId });
+        const comment = await Comments.findById(_commentId);
+        console.log(comment);
         if (comment) {
-            await Comments.deleteOne({ _commentId });
+            // await Comments.deleteOne({ _commentId });
+            await comment.delete();
             res.json({massage : "댓글을 삭제하였습니다."});
         } else {
             res.status(404).json({message : "댓글 조회에 실패하였습니다."});
