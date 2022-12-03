@@ -82,13 +82,13 @@ router.put("/:_postId", async (req,res) => {
 router.delete("/:_postId", async (req,res) => {
     try {
         const { _postId } = req.params;
-        const { password } = req.params;
-        console.log(req.params);
+        const password = req.body.password;
+        // console.log(password);
 
         // const post = await Posts.findOne({ _id : _postId });
         const post = await Posts.findById(_postId);
-        console.log(post);
-        if (post) {
+        // console.log(post.password);
+        if (post.password === Number(password)) {
             await post.delete();
             res.json({massage : "게시글을 삭제하였습니다."});
         } else {
